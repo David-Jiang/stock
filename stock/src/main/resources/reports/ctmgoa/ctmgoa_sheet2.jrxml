@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ctmgoa_sheet2" pageWidth="971" pageHeight="420" columnWidth="971" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" uuid="9fa44e74-6982-4039-9147-2aaf79475cd7">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SHEET2_TITLE" class="java.lang.String"/>
+	<field name="regUnitCode" class="java.lang.String"/>
+	<field name="regUnitName" class="java.lang.String"/>
+	<field name="case1" class="java.lang.Integer"/>
+	<field name="case2" class="java.lang.Integer"/>
+	<field name="case3" class="java.lang.Integer"/>
+	<field name="case4" class="java.lang.Integer"/>
+	<field name="case5" class="java.lang.Integer"/>
+	<field name="case6" class="java.lang.Integer"/>
+	<field name="case7" class="java.lang.Integer"/>
+	<field name="case8" class="java.lang.Integer"/>
+	<field name="case9" class="java.lang.Integer"/>
+	<field name="case10" class="java.lang.Integer"/>
+	<field name="case11" class="java.lang.Integer"/>
+	<field name="case12" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="75" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="70" height="20" uuid="646589a0-19fb-4542-9165-b6c4f3d129f8"/>
+				<textElement>
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[統計日期:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="130" height="27" uuid="564f9081-1223-4fff-bb12-45f77d534e90"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[案件狀態]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="20" width="70" height="18" uuid="12293a48-0a81-4502-956f-b6c1d57cfb88"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[001]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="20" width="70" height="18" uuid="ee23350d-7f7c-4829-84d0-d879fc74a627"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[002]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="20" width="70" height="18" uuid="9b8dfe62-bf4d-4612-a065-bf8fe9724eba"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[003]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="20" width="70" height="18" uuid="06c5ea3c-237b-495b-8322-9fa731cb245f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[004]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="20" width="70" height="18" uuid="2aa09394-5b14-447f-95ff-0a8e06d0557e"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[005]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="20" width="70" height="18" uuid="d07777bf-cc10-40a0-8ed1-331b85ba1178"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[006]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="550" y="20" width="70" height="18" uuid="728b18b5-4475-4c20-8cb4-16b03b3c011f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[101]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="620" y="20" width="70" height="18" uuid="fd1bea24-7c1b-468b-85cf-5b2910107a5e"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[102]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="690" y="20" width="70" height="18" uuid="7779bf2a-6418-4ab5-b3aa-9883b37700fd"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[103]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="760" y="20" width="70" height="18" uuid="606f8f51-d954-4041-a3dd-bdfebd006a79"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[105]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="900" y="20" width="70" height="18" uuid="40dccc05-3b6a-4e86-9fd1-fdae6fb9dc53"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[201]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="830" y="20" width="70" height="18" uuid="1cf77631-3287-4e68-9f2a-5410f477299a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[106]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="38" width="70" height="37" uuid="d5e85e2e-c82f-46c1-8ca8-73b1292f9845"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[資料登打
+完成]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="38" width="70" height="37" uuid="fe6c06cd-95ae-4f49-938f-b81e22de73d9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[等待繳費]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="38" width="70" height="37" uuid="156e88b1-c5f1-402c-a4e5-7f0990589ad7"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[資料
+已傳送]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="38" width="70" height="37" uuid="ba995670-b4e6-48e3-8619-88b870a8cda9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[補正中
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="38" width="70" height="37" uuid="0dec3328-e56c-4fd6-8d0e-cd865d92d32d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[已建立
+補正案
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="38" width="70" height="37" uuid="d6a5fb58-a94d-469c-a16b-906bb98e89d0"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[已補正
+完成
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="620" y="38" width="70" height="37" uuid="e2c4bc04-e71d-412e-9d6e-2e8f5bba83b1"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[案件
+審理中]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="550" y="38" width="70" height="37" uuid="db534c6b-3b03-4924-a015-ba441a0741ad"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[已收文]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="690" y="38" width="70" height="37" uuid="d8a65a6c-c5e8-46e8-a7ec-088bd88b8646"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[已結案]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="760" y="38" width="70" height="37" uuid="f23d0e40-e5c6-4b53-80a4-f617ee1f38c7"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[已撤件]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="830" y="38" width="70" height="37" uuid="a10be4b9-5f97-44b9-bf09-d8ea2ffabf51"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[等待文件
+補送中]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="900" y="38" width="70" height="37" uuid="a713441e-c0a7-4f33-9978-89212b3dfc9c"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[等待加簽
+簽章]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="0" width="200" height="20" uuid="692844cd-4f74-498f-af99-125ddf384ab3"/>
+				<textElement>
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SHEET2_TITLE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="47" width="130" height="28" uuid="0a17aa6e-4ccf-4203-ae3a-5b80179361a4"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[登記機關]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="50" height="18" uuid="c00baaa0-fc41-4525-ba8b-7581eccc7870"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{regUnitCode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="0" width="80" height="18" uuid="e4fc3e7b-80b4-40aa-9204-a727adced68a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{regUnitName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="0" width="70" height="18" uuid="afc6ede3-0ad6-48d2-b491-d6e7454aa66a"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{case1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="70" height="18" uuid="3349fbe2-89cb-4132-9bb4-dcd05729e3e6"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{case2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="0" width="70" height="18" uuid="b7d52813-a127-479b-bf83-83cd76c3d558"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{case3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="0" width="70" height="18" uuid="ccf6ee71-9914-4570-a8cc-cb2e80cab6e5"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{case4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="0" width="70" height="18" uuid="56b2f11d-74bd-40f2-943a-32ec87d646e0"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{case5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="0" width="70" height="18" uuid="ca726249-c422-458f-b340-16236c253fe5"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{case6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="550" y="0" width="70" height="18" uuid="ea6e48f8-9219-42e3-8cff-5f8943b95262"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{case7}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="620" y="0" width="70" height="18" uuid="1477f6fd-ac2d-4e7e-a386-5d1bee706105"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{case8}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="690" y="0" width="70" height="18" uuid="f751b568-1393-443e-bfa7-06561483970a"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{case9}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="760" y="0" width="70" height="18" uuid="371b4943-004a-4b2d-ad21-c5cb22e29655"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{case10}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="830" y="0" width="70" height="18" uuid="6ca1fe19-8d36-46f9-9426-92ff57e348d6"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{case11}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="900" y="0" width="70" height="18" uuid="213cc80c-48fa-47e2-9092-08361ef6f3ad"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{case12}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

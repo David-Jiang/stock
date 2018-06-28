@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ctmgoa_sheet1" pageWidth="500" pageHeight="180" columnWidth="500" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" uuid="9fa44e74-6982-4039-9147-2aaf79475cd7">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SHEET1_TITLE" class="java.lang.String"/>
+	<field name="currentCmpyCount" class="java.lang.Integer"/>
+	<field name="currentAuthCount" class="java.lang.Integer"/>
+	<field name="currentBankCount" class="java.lang.Integer"/>
+	<field name="monthCmpyCount" class="java.lang.Integer"/>
+	<field name="monthAuthCount" class="java.lang.Integer"/>
+	<field name="monthBankCount" class="java.lang.Integer"/>
+	<field name="queryTime" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="500" height="20" forecolor="#009999" uuid="a14855fe-dc4e-4436-9cc4-a8bcbc5680f8"/>
+				<textElement>
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[線上登記系統註冊會員數及授權自然人數統計]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="180" height="20" uuid="646589a0-19fb-4542-9165-b6c4f3d129f8"/>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[統計日期:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="180" y="20" width="200" height="20" uuid="692844cd-4f74-498f-af99-125ddf384ab3"/>
+				<textElement>
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SHEET1_TITLE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="180" height="20" uuid="f1d20326-a9ef-4371-a284-235cf4c59895"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[統計項目]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="180" y="40" width="100" height="20" backcolor="#FFFFCC" uuid="8410975a-6bc4-4c01-8579-8cc75e1af9c4"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[現行總數]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="280" y="40" width="100" height="20" uuid="d9bdd169-e934-436b-b6b7-d8371fbaea56"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{queryTime}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="180" height="20" uuid="ccfb4238-ec3d-4806-8acb-9fe0ad110091"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[工商憑證會員家數]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="180" height="20" uuid="34d4afb0-e720-42de-a669-2226bf21bc9f"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[授權自然人人數]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="180" height="20" uuid="81225abd-8887-49fa-8b29-de1229e7e2f6"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[工商憑證會員家數內的銀行家數]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="180" y="0" width="100" height="20" backcolor="#FFFFCC" uuid="57acc418-d12f-4d42-907a-34f39110f6e9"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{currentCmpyCount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="180" y="20" width="100" height="20" backcolor="#FFFFCC" uuid="9a5403b9-6dc9-41a8-8858-cdca866a7bac"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{currentAuthCount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="180" y="40" width="100" height="20" backcolor="#FFFFCC" uuid="e42987fb-1b9c-44e9-95d9-ef2dc7c155e9"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{currentBankCount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="100" height="20" uuid="7a6ed6e8-9ed4-4cb1-bcdd-8d1358e7ce6b"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{monthCmpyCount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="20" width="100" height="20" uuid="5f567b1b-5a27-4fb7-b187-e0ba9fe6ebf3"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{monthAuthCount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="40" width="100" height="20" uuid="2f8dad89-18ca-4d98-8ceb-97d73ef4fd94"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{monthBankCount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="20" width="500" height="20" uuid="266801ab-6103-4682-aa9c-ec12bf8530e3"/>
+				<textElement>
+					<font fontName="新細明體" size="12"/>
+				</textElement>
+				<text><![CDATA[備註: 工商憑證會員家數含有31個銀行或分行，其中1家銀行於106年4月加入會員。]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
