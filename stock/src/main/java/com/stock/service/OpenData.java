@@ -37,7 +37,7 @@ public class OpenData {
 		String urlPath = "https://stock.wearn.com/netbuy.asp?kind=";
 		HttpsURLConnection conn = null;
 		BufferedReader buffer = null;
-		String[] stockArr = {"2456", "5317", "2375"};
+		String[] stockArr = {"2456", "5317", "2375", "2492", "2327"};
 		List<StockVO> stockInfoList = new ArrayList<>();
 		try {
 			for (String stockId : stockArr) {
