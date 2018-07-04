@@ -22,6 +22,10 @@ public class MongoDBDao {
 	}
 	
 	public void updateStockInfo(List<StockVO> stockInfoList) {
-		mongoTemplate.insertAll(stockInfoList);
+		for (StockVO stockVO : stockInfoList) {
+			if (!mongoTemplate.exists(new Query(Criteria.where("stockId").is(stockVO.getStockId())), StockVO.class)) {
+				mongoTemplate.insert(stockVO);
+			}
+		}
 	}
 }

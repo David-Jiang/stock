@@ -32,15 +32,16 @@ public class OpenData {
 		return stockInfoList;
 	}
 	
-	public void updateStockInfo() throws Exception {
+	public void updateStockInfo(String parameter) throws Exception {
 		SslUtil.ignoreSsl();
 		String urlPath = "https://stock.wearn.com/netbuy.asp?kind=";
 		HttpsURLConnection conn = null;
 		BufferedReader buffer = null;
-		String[] stockArr = {"2456", "5317", "2375", "2492", "2327"};
+		List<String> stockIdArr = new ArrayList<>();
+		stockIdArr.add(parameter);
 		List<StockVO> stockInfoList = new ArrayList<>();
 		try {
-			for (String stockId : stockArr) {
+			for (String stockId : stockIdArr) {
 				StockVO stockVO = new StockVO();
 				List<SecuritiesVO> securitiesTradeList = new ArrayList<>();
 				

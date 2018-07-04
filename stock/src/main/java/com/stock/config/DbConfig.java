@@ -1,15 +1,13 @@
 package com.stock.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 
 @Configuration
 @PropertySource(value = "classpath:ds.properties", ignoreResourceNotFound = true)
 public class DbConfig {
-	@Autowired
-	private Environment env;
+//	@Autowired
+//	private Environment env;
 	
 //	@Bean(name = "ds_pubfts")
 //	@Primary
