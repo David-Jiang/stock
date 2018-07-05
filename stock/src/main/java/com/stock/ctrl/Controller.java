@@ -47,12 +47,12 @@ public class Controller {
 		return gson.toJson(stockInfoList);
 	}
 	
-	@RequestMapping(value = "/updateStockInfo", produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/insertStockInfo", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String updateStockInfo(@RequestParam("stockId") String stockId) {
+	public String insertStockInfo(@RequestParam("stockId") String stockId) {
 		OpenData openData = context.getBean(OpenData.class);
 		try {
-			openData.updateStockInfo(stockId);
+			openData.insertStockInfo(stockId);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			messageVO.setResMessage("發生錯誤，原因為：" + e.getMessage());
