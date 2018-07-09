@@ -19,6 +19,7 @@ import com.stock.config.Application;
 import com.stock.dao.MongoDBDao;
 import com.stock.util.DateUtil;
 import com.stock.util.SslUtil;
+import com.stock.vo.HistoryVO;
 import com.stock.vo.SecuritiesVO;
 import com.stock.vo.StockVO;
 
@@ -43,7 +44,7 @@ public class OpenData {
 		stockIdArr.add(parameter);
 		
 		SslUtil.ignoreSsl();
-		String urlPath = "https://stock.wearn.com/netbuy.asp?kind=";
+		String[] urlPathArr = {"https://stock.wearn.com/netbuy.asp?kind=", "https://stock.wearn.com/cdata.asp?kind="};
 		HttpsURLConnection conn = null;
 		BufferedReader buffer = null;
 		
@@ -51,54 +52,66 @@ public class OpenData {
 		try {
 			for (String stockId : stockIdArr) {
 				StockVO stockVO = new StockVO();
-				List<SecuritiesVO> securitiesTradeList = new ArrayList<>();
 				
-				URL url = new URL(urlPath + stockId);
-				conn = (HttpsURLConnection) url.openConnection();
-			    conn.connect();
-			    
-			    String line = null;
-			    StringBuffer str = new StringBuffer();
-			    buffer = new BufferedReader(new InputStreamReader(conn.getInputStream(), "MS950"));
-			    while((line = buffer.readLine()) != null) {
-			    	str.append(line);
-			    }
-			    int count = 0;
-			    String[] sourceArr = str.toString().split("<tr class=\"stockalllistbg");
-			    for (String source : sourceArr) {
-			    	if (count > 0) {
-			    		String temp = source.trim().replaceAll("\"1\">", "");
-			    		temp = temp.replaceAll("1\">", "");
-				    	temp = temp.replaceAll("2\">", "");
-				    	temp = temp.replaceAll("</tr>", "");
-				    	temp = temp.replaceAll("</td>", "");
-				    	temp = temp.replaceAll("&nbsp;", "");
-				    	temp = temp.replaceAll("<td align=\"center\">", "");
-				    	temp = temp.replaceAll("\\t", "");
-				    	String[] tempArr = temp.split("<td align=\"right\">");
-				    	if (count == sourceArr.length - 1) {
-				    		tempArr[3] = tempArr[3].split("</table>")[0];
+				for (String urlPath: urlPathArr) {
+					List<SecuritiesVO> securitiesTradeList = new ArrayList<>();
+					List<HistoryVO> historyPriceList = new ArrayList<>();
+					
+					URL url = new URL(urlPath + stockId);
+					conn = (HttpsURLConnection) url.openConnection();
+				    conn.connect();
+				    
+				    String line = null;
+				    StringBuffer str = new StringBuffer();
+				    buffer = new BufferedReader(new InputStreamReader(conn.getInputStream(), "MS950"));
+				    while((line = buffer.readLine()) != null) {
+				    	str.append(line);
+				    }
+				    int count = 0;
+				    String[] sourceArr = str.toString().split("<tr class=\"stockalllistbg");
+				    for (String source : sourceArr) {
+				    	if (count > 0) {
+				    		String temp = source.trim().replaceAll("\"1\">", "");
+				    		temp = temp.replaceAll("1\">", "");
+					    	temp = temp.replaceAll("2\">", "");
+					    	temp = temp.replaceAll("</tr>", "");
+					    	temp = temp.replaceAll("</td>", "");
+					    	temp = temp.replaceAll("&nbsp;", "");
+					    	temp = temp.replaceAll("<td align=\"center\">", "");
+					    	temp = temp.replaceAll("\\t", "");
+					    	String[] tempArr = temp.split("<td align=\"right\">");
+					    	if (count == sourceArr.length - 1) {
+					    		tempArr[3] = tempArr[3].split("</table>")[0];
+					    	}
+					    	if (urlPath.indexOf("netbuy") > -1) {
+					    		securitiesTradeList.add(changeToSecuritiesVO(tempArr));
+					    	} else {
+					    		historyPriceList.add(changeToHistoryVO(tempArr));
+					    	}
+				    	} else {
+				    		if (StringUtils.isBlank(stockVO.getStockId())) {
+				    			String stockName = sourceArr[0].split("<font size=\"3\">")[1].split("</font>")[0].replaceAll(stockId, "").trim();
+					    		stockVO.setStockId(stockId);
+					    		stockVO.setStockName(stockName);
+				    		}
 				    	}
-				    	SecuritiesVO securitiesVO = new SecuritiesVO();
-				    	securitiesVO.setTransactionDate(tempArr[0].trim());
-				    	securitiesVO.setInvestAmount(Integer.parseInt(tempArr[1].trim().replaceAll(",", "")));
-				    	securitiesVO.setNativeAmount(Integer.parseInt(tempArr[2].trim().replaceAll(",", "")));
-				    	securitiesVO.setForeignAmount(Integer.parseInt(tempArr[3].trim().replaceAll(",", "")));
-				    	securitiesVO.setTotalAmount(securitiesVO.getInvestAmount() + securitiesVO.getNativeAmount() + securitiesVO.getForeignAmount());
-				    	securitiesTradeList.add(securitiesVO);
+				    	count++;
+				    }
+				    if (urlPath.indexOf("netbuy") > -1) {
+				    	stockVO.setSecuritiesTradeList(securitiesTradeList);
 			    	} else {
-			    		String stockName = sourceArr[0].split("<font size=\"3\">")[1].split("</font>")[0].replaceAll(stockId, "").trim();
-			    		stockVO.setStockId(stockId);
-			    		stockVO.setStockName(stockName);
+			    		stockVO.setHistoryPriceList(historyPriceList);
 			    	}
-			    	count++;
-			    }
-			    stockVO.setSecuritiesTradeList(securitiesTradeList);
-			    stockInfoList.add(stockVO);
-			    buffer.close();
-				conn.disconnect();
-				Thread.sleep(5000);
+				    buffer.close();
+					conn.disconnect();
+					Thread.sleep(5000);
+				}
+				
+				stockInfoList.add(stockVO);
 			}
+			
+			
+			
 			mongoDBDao.insertStockInfo(stockInfoList);
 		} catch (Exception e) {
 			buffer.close();
@@ -111,7 +124,7 @@ public class OpenData {
 		List<StockVO> stockInfoList = mongoDBDao.getAllStockInfo();
 		
 		SslUtil.ignoreSsl();
-		String urlPath = "https://stock.wearn.com/netbuy.asp?kind=";
+		String[] urlPathArr = {"https://stock.wearn.com/netbuy.asp?kind=", "https://stock.wearn.com/cdata.asp?kind="};
 		HttpsURLConnection conn = null;
 		BufferedReader buffer = null;
 		
@@ -119,50 +132,57 @@ public class OpenData {
 			for (StockVO stockVO : stockInfoList) {
 				String stockId = stockVO.getStockId();
 				List<SecuritiesVO> securitiesTradeList = stockVO.getSecuritiesTradeList();
+				List<HistoryVO> historyPriceList = stockVO.getHistoryPriceList();
 				
-				URL url = new URL(urlPath + stockId);
-				conn = (HttpsURLConnection) url.openConnection();
-			    conn.connect();
-			    
-			    String line = null;
-			    StringBuffer str = new StringBuffer();
-			    buffer = new BufferedReader(new InputStreamReader(conn.getInputStream(), "MS950"));
-			    while((line = buffer.readLine()) != null) {
-			    	str.append(line);
-			    }
-			    int count = 0;
-			    String[] sourceArr = str.toString().split("<tr class=\"stockalllistbg");
-			    for (String source : sourceArr) {
-			    	if (count > 0) {
-			    		String temp = source.trim().replaceAll("\"1\">", "");
-			    		temp = temp.replaceAll("1\">", "");
-				    	temp = temp.replaceAll("2\">", "");
-				    	temp = temp.replaceAll("</tr>", "");
-				    	temp = temp.replaceAll("</td>", "");
-				    	temp = temp.replaceAll("&nbsp;", "");
-				    	temp = temp.replaceAll("<td align=\"center\">", "");
-				    	temp = temp.replaceAll("\\t", "");
-				    	String[] tempArr = temp.split("<td align=\"right\">");
-				    	if (count == sourceArr.length - 1) {
-				    		tempArr[3] = tempArr[3].split("</table>")[0];
+				for (String urlPath : urlPathArr) {
+					URL url = new URL(urlPath + stockId);
+					conn = (HttpsURLConnection) url.openConnection();
+				    conn.connect();
+				    
+				    String line = null;
+				    StringBuffer str = new StringBuffer();
+				    buffer = new BufferedReader(new InputStreamReader(conn.getInputStream(), "MS950"));
+				    while((line = buffer.readLine()) != null) {
+				    	str.append(line);
+				    }
+				    int count = 0;
+				    String[] sourceArr = str.toString().split("<tr class=\"stockalllistbg");
+				    for (String source : sourceArr) {
+				    	if (count > 0) {
+				    		String temp = source.trim().replaceAll("\"1\">", "");
+				    		temp = temp.replaceAll("1\">", "");
+					    	temp = temp.replaceAll("2\">", "");
+					    	temp = temp.replaceAll("</tr>", "");
+					    	temp = temp.replaceAll("</td>", "");
+					    	temp = temp.replaceAll("&nbsp;", "");
+					    	temp = temp.replaceAll("<td align=\"center\">", "");
+					    	temp = temp.replaceAll("\\t", "");
+					    	String[] tempArr = temp.split("<td align=\"right\">");
+					    	if (count == sourceArr.length - 1) {
+					    		tempArr[3] = tempArr[3].split("</table>")[0];
+					    	}
+					    	String transactionDate = tempArr[0].trim();
+					    	if (urlPath.indexOf("netbuy") > -1) {
+						    	if (securitiesTradeList.stream().noneMatch(vo -> StringUtils.equals(vo.getTransactionDate(), transactionDate))) {
+						    		securitiesTradeList.add(changeToSecuritiesVO(tempArr));
+						    	}
+					    	} else {
+						    	if (historyPriceList.stream().noneMatch(vo -> StringUtils.equals(vo.getTransactionDate(), transactionDate))) {
+						    		historyPriceList.add(changeToHistoryVO(tempArr));
+						    	}
+					    	}
 				    	}
-				    	
-				    	String transactionDate = tempArr[0].trim();
-				    	if (securitiesTradeList.stream().noneMatch(vo -> StringUtils.equals(vo.getTransactionDate(), transactionDate))) {
-				    		SecuritiesVO securitiesVO = new SecuritiesVO();
-					    	securitiesVO.setTransactionDate(transactionDate);
-					    	securitiesVO.setInvestAmount(Integer.parseInt(tempArr[1].trim().replaceAll(",", "")));
-					    	securitiesVO.setNativeAmount(Integer.parseInt(tempArr[2].trim().replaceAll(",", "")));
-					    	securitiesVO.setForeignAmount(Integer.parseInt(tempArr[3].trim().replaceAll(",", "")));
-					    	securitiesVO.setTotalAmount(securitiesVO.getInvestAmount() + securitiesVO.getNativeAmount() + securitiesVO.getForeignAmount());
-					    	securitiesTradeList.add(securitiesVO);
-				    	}
-			    	}
-			    	count++;
-			    }
-			    Comparator<SecuritiesVO> comparator = Comparator.comparing(SecuritiesVO::getTransactionDate); 
-			    Collections.sort(securitiesTradeList, comparator.reversed());
+				    	count++;
+				    }
+				}
+				
+			    Comparator<SecuritiesVO> comparatorSecurities = Comparator.comparing(SecuritiesVO::getTransactionDate); 
+			    Collections.sort(securitiesTradeList, comparatorSecurities.reversed());
 			    stockVO.setSecuritiesTradeList(securitiesTradeList);
+			    Comparator<HistoryVO> comparatorHistory = Comparator.comparing(HistoryVO::getTransactionDate); 
+			    Collections.sort(historyPriceList, comparatorHistory.reversed());
+			    stockVO.setHistoryPriceList(historyPriceList);
+			    
 			    buffer.close();
 				conn.disconnect();
 				Thread.sleep(5000);
@@ -173,5 +193,26 @@ public class OpenData {
 			conn.disconnect();
 			throw e;
 		}
+	}
+	
+	private SecuritiesVO changeToSecuritiesVO(String[] source) {
+		SecuritiesVO securitiesVO = new SecuritiesVO();
+    	securitiesVO.setTransactionDate(source[0].trim());
+    	securitiesVO.setInvestAmount(Integer.parseInt(source[1].trim().replaceAll(",", "")));
+    	securitiesVO.setNativeAmount(Integer.parseInt(source[2].trim().replaceAll(",", "")));
+    	securitiesVO.setForeignAmount(Integer.parseInt(source[3].trim().replaceAll(",", "")));
+    	securitiesVO.setTotalAmount(securitiesVO.getInvestAmount() + securitiesVO.getNativeAmount() + securitiesVO.getForeignAmount());
+    	return securitiesVO;
+	}
+	
+	private HistoryVO changeToHistoryVO(String[] source) {
+		HistoryVO historyVO = new HistoryVO();
+		historyVO.setTransactionDate(source[0].trim());
+		historyVO.setStartPrice(source[1].trim());
+		historyVO.setHighPrice(source[2].trim());
+		historyVO.setLowPrice(source[3].trim());
+		historyVO.setEndPrice(source[4].trim());
+		historyVO.setTransactionAmount(source[5].trim());
+    	return historyVO;
 	}
 }

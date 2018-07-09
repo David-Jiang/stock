@@ -33,7 +33,8 @@ public class MongoDBDao {
 	public void updateAllStockInfo(List<StockVO> stockInfoList) {
 		for (StockVO stockVO : stockInfoList) {
 			mongoTemplate.updateFirst(new Query(Criteria.where("stockId").is(stockVO.getStockId())), 
-					new Update().set("securitiesTradeList", stockVO.getSecuritiesTradeList()), StockVO.class);
+					new Update().set("securitiesTradeList", stockVO.getSecuritiesTradeList()).set("historyPriceList", stockVO.getHistoryPriceList())
+					, StockVO.class);
 		}
 	}
 }

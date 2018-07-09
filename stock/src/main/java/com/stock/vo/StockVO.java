@@ -9,6 +9,7 @@ public class StockVO {
 	private String stockId;
 	private String stockName;
 	private List<SecuritiesVO> securitiesTradeList;
+	private List<HistoryVO> historyPriceList;
 	
 	public String getStockId() {
 		return stockId;
@@ -27,5 +28,11 @@ public class StockVO {
 	}
 	public void setSecuritiesTradeList(List<SecuritiesVO> securitiesTradeList) {
 		this.securitiesTradeList = securitiesTradeList;
+	}
+	public List<HistoryVO> getHistoryPriceList() {
+		return historyPriceList;
+	}
+	public void setHistoryPriceList(List<HistoryVO> historyPriceList) {
+		this.historyPriceList = historyPriceList;
 	}
 }
