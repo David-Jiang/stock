@@ -81,7 +81,11 @@ public class OpenData {
 					    	temp = temp.replaceAll("\\t", "");
 					    	String[] tempArr = temp.split("<td align=\"right\">");
 					    	if (count == sourceArr.length - 1) {
-					    		tempArr[3] = tempArr[3].split("</table>")[0];
+					    		if (urlPath.indexOf("netbuy") > -1) {
+					    			tempArr[3] = tempArr[3].split("</table>")[0];
+					    		} else {
+					    			tempArr[5] = tempArr[5].split("</table>")[0];
+					    		}
 					    	}
 					    	if (urlPath.indexOf("netbuy") > -1) {
 					    		securitiesTradeList.add(changeToSecuritiesVO(tempArr));
@@ -159,7 +163,11 @@ public class OpenData {
 					    	temp = temp.replaceAll("\\t", "");
 					    	String[] tempArr = temp.split("<td align=\"right\">");
 					    	if (count == sourceArr.length - 1) {
-					    		tempArr[3] = tempArr[3].split("</table>")[0];
+					    		if (urlPath.indexOf("netbuy") > -1) {
+					    			tempArr[3] = tempArr[3].split("</table>")[0];
+					    		} else {
+					    			tempArr[5] = tempArr[5].split("</table>")[0];
+					    		}
 					    	}
 					    	String transactionDate = tempArr[0].trim();
 					    	if (urlPath.indexOf("netbuy") > -1) {
