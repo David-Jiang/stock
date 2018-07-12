@@ -19,6 +19,7 @@ import com.stock.config.Application;
 import com.stock.dao.MongoDBDao;
 import com.stock.util.DateUtil;
 import com.stock.util.SslUtil;
+import com.stock.vo.FinancingVO;
 import com.stock.vo.HistoryVO;
 import com.stock.vo.SecuritiesVO;
 import com.stock.vo.StockVO;
@@ -28,6 +29,11 @@ public class OpenData {
 	
 	@Autowired
 	MongoDBDao mongoDBDao;
+	
+//	public static void main(final String[] args) throws Exception {
+//		OpenData openData = new OpenData();
+//		openData.insertStockInfo("2456");
+//	}
 	
 	public List<StockVO> getStockInfo() throws Exception {
 		List<StockVO> stockInfoList = null;
@@ -44,7 +50,7 @@ public class OpenData {
 		stockIdArr.add(parameter);
 		
 		SslUtil.ignoreSsl();
-		String[] urlPathArr = {"https://stock.wearn.com/netbuy.asp?kind=", "https://stock.wearn.com/cdata.asp?kind="};
+		String[] urlPathArr = {"https://stock.wearn.com/netbuy.asp?kind=", "https://stock.wearn.com/cdata.asp?kind=", "https://stock.wearn.com/acredit.asp?kind="};
 		HttpsURLConnection conn = null;
 		BufferedReader buffer = null;
 		
@@ -56,6 +62,7 @@ public class OpenData {
 				for (String urlPath: urlPathArr) {
 					List<SecuritiesVO> securitiesTradeList = new ArrayList<>();
 					List<HistoryVO> historyPriceList = new ArrayList<>();
+					List<FinancingVO> financingTradeList = new ArrayList<>();
 					
 					URL url = new URL(urlPath + stockId);
 					conn = (HttpsURLConnection) url.openConnection();
@@ -87,10 +94,16 @@ public class OpenData {
 					    			tempArr[5] = tempArr[5].split("</table>")[0];
 					    		}
 					    	}
+					    	if (urlPath.indexOf("acredit") > -1) {
+					    		tempArr[2] = tempArr[2].split("<span")[0];
+				    			tempArr[4] = tempArr[4].split("<span")[0];
+					    	}
 					    	if (urlPath.indexOf("netbuy") > -1) {
 					    		securitiesTradeList.add(changeToSecuritiesVO(tempArr));
-					    	} else {
+					    	} else if (urlPath.indexOf("cdata") > -1) {
 					    		historyPriceList.add(changeToHistoryVO(tempArr));
+					    	} else {
+					    		financingTradeList.add(changeToFinancingVO(tempArr));
 					    	}
 				    	} else {
 				    		if (StringUtils.isBlank(stockVO.getStockId())) {
@@ -103,8 +116,10 @@ public class OpenData {
 				    }
 				    if (urlPath.indexOf("netbuy") > -1) {
 				    	stockVO.setSecuritiesTradeList(securitiesTradeList);
-			    	} else {
+			    	} else if (urlPath.indexOf("cdata") > -1) {
 			    		stockVO.setHistoryPriceList(historyPriceList);
+			    	} else {
+			    		stockVO.setFinancingTradeList(financingTradeList);
 			    	}
 				    buffer.close();
 					conn.disconnect();
@@ -128,7 +143,7 @@ public class OpenData {
 		List<StockVO> stockInfoList = mongoDBDao.getAllStockInfo();
 		
 		SslUtil.ignoreSsl();
-		String[] urlPathArr = {"https://stock.wearn.com/netbuy.asp?kind=", "https://stock.wearn.com/cdata.asp?kind="};
+		String[] urlPathArr = {"https://stock.wearn.com/netbuy.asp?kind=", "https://stock.wearn.com/cdata.asp?kind=", "https://stock.wearn.com/acredit.asp?kind="};
 		HttpsURLConnection conn = null;
 		BufferedReader buffer = null;
 		
@@ -137,6 +152,7 @@ public class OpenData {
 				String stockId = stockVO.getStockId();
 				List<SecuritiesVO> securitiesTradeList = stockVO.getSecuritiesTradeList();
 				List<HistoryVO> historyPriceList = stockVO.getHistoryPriceList();
+				List<FinancingVO> financingTradeList = stockVO.getFinancingTradeList();
 				
 				for (String urlPath : urlPathArr) {
 					URL url = new URL(urlPath + stockId);
@@ -169,14 +185,22 @@ public class OpenData {
 					    			tempArr[5] = tempArr[5].split("</table>")[0];
 					    		}
 					    	}
+					    	if (urlPath.indexOf("acredit") > -1) {
+					    		tempArr[2] = tempArr[2].split("<span")[0];
+				    			tempArr[4] = tempArr[4].split("<span")[0];
+					    	}
 					    	String transactionDate = tempArr[0].trim();
 					    	if (urlPath.indexOf("netbuy") > -1) {
 						    	if (securitiesTradeList.stream().noneMatch(vo -> StringUtils.equals(vo.getTransactionDate(), transactionDate))) {
 						    		securitiesTradeList.add(changeToSecuritiesVO(tempArr));
 						    	}
-					    	} else {
+					    	} else if (urlPath.indexOf("cdata") > -1) {
 						    	if (historyPriceList.stream().noneMatch(vo -> StringUtils.equals(vo.getTransactionDate(), transactionDate))) {
 						    		historyPriceList.add(changeToHistoryVO(tempArr));
+						    	}
+					    	} else {
+					    		if (financingTradeList.stream().noneMatch(vo -> StringUtils.equals(vo.getTransactionDate(), transactionDate))) {
+					    			financingTradeList.add(changeToFinancingVO(tempArr));
 						    	}
 					    	}
 				    	}
@@ -184,12 +208,12 @@ public class OpenData {
 				    }
 				}
 				
-			    Comparator<SecuritiesVO> comparatorSecurities = Comparator.comparing(SecuritiesVO::getTransactionDate); 
-			    Collections.sort(securitiesTradeList, comparatorSecurities.reversed());
+			    Collections.sort(securitiesTradeList, Comparator.comparing(SecuritiesVO::getTransactionDate).reversed());
 			    stockVO.setSecuritiesTradeList(securitiesTradeList);
-			    Comparator<HistoryVO> comparatorHistory = Comparator.comparing(HistoryVO::getTransactionDate); 
-			    Collections.sort(historyPriceList, comparatorHistory.reversed());
+			    Collections.sort(historyPriceList, Comparator.comparing(HistoryVO::getTransactionDate).reversed());
 			    stockVO.setHistoryPriceList(historyPriceList);
+			    Collections.sort(financingTradeList, Comparator.comparing(FinancingVO::getTransactionDate).reversed());
+			    stockVO.setFinancingTradeList(financingTradeList);
 			    
 			    buffer.close();
 				conn.disconnect();
@@ -222,5 +246,15 @@ public class OpenData {
 		historyVO.setEndPrice(source[4].trim());
 		historyVO.setTransactionAmount(source[5].trim());
     	return historyVO;
+	}
+	
+	private FinancingVO changeToFinancingVO(String[] source) {
+		FinancingVO financingVO = new FinancingVO();
+		financingVO.setTransactionDate(source[0].trim());
+		financingVO.setMarginAmount(source[1].trim());
+		financingVO.setMarginBalance(source[2].trim());
+		financingVO.setShortAmount(source[3].trim());
+		financingVO.setShortBalance(source[4].trim());
+		return financingVO;
 	}
 }
