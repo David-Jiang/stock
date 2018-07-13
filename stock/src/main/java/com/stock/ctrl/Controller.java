@@ -51,15 +51,16 @@ public class Controller {
 	@ResponseBody
 	public String insertStockInfo(@RequestParam("stockId") String stockId) {
 		OpenData openData = context.getBean(OpenData.class);
+		List<StockVO> stockInfoList = null;
 		try {
 			openData.insertStockInfo(stockId);
+			stockInfoList = openData.getStockInfo();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			messageVO.setResMessage("發生錯誤，原因為：" + e.getMessage());
 			return gson.toJson(messageVO);
 		}
-		messageVO.setResMessage(null);
-		return gson.toJson(messageVO);
+		return gson.toJson(stockInfoList);
 	}
 	
 }
