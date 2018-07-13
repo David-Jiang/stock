@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<tiles:insertAttribute name="head" />
-		<title>公示</title>
+		<title></title>
 	</head>
 	<body ng-app="myApp" ng-controller="controller as ctrl">
 		<tiles:insertAttribute name="body" />
