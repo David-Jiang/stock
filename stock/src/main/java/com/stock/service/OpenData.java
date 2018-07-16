@@ -128,9 +128,19 @@ public class OpenData {
 				
 				stockInfoList.add(stockVO);
 			}
-			
-			
-			
+			for (StockVO stockVO : stockInfoList) {
+				List<HistoryVO> historyPriceList = stockVO.getHistoryPriceList();
+				for (int i = 0; i < historyPriceList.size(); i++) {
+					if ((i + 1) != historyPriceList.size()) {
+						double endPriceNew = Double.valueOf(historyPriceList.get(i).getEndPrice().replaceAll(",", ""));
+						double endPriceOld = Double.valueOf(historyPriceList.get(i + 1).getEndPrice().replaceAll(",", ""));
+						double endPrice = endPriceNew - endPriceOld;
+						historyPriceList.get(i).setWavePrice(String.valueOf(endPrice));
+					} else {
+						historyPriceList.get(i).setWavePrice("0");
+					}
+				}
+			}
 			mongoDBDao.insertStockInfo(stockInfoList);
 		} catch (Exception e) {
 			buffer.close();
@@ -214,6 +224,19 @@ public class OpenData {
 			    stockVO.setHistoryPriceList(historyPriceList);
 			    Collections.sort(financingTradeList, Comparator.comparing(FinancingVO::getTransactionDate).reversed());
 			    stockVO.setFinancingTradeList(financingTradeList);
+			    
+			    for (int i = 0; i < historyPriceList.size(); i++) {
+			    	if (StringUtils.isEmpty(historyPriceList.get(i).getWavePrice())) {
+			    		if ((i + 1) != historyPriceList.size()) {
+							double endPriceNew = Double.valueOf(historyPriceList.get(i).getEndPrice().replaceAll(",", ""));
+							double endPriceOld = Double.valueOf(historyPriceList.get(i + 1).getEndPrice().replaceAll(",", ""));
+							double endPrice = endPriceNew - endPriceOld;
+							historyPriceList.get(i).setWavePrice(String.valueOf(endPrice));
+						} else {
+							historyPriceList.get(i).setWavePrice("0");
+						}
+			    	}
+				}
 			    
 			    buffer.close();
 				conn.disconnect();

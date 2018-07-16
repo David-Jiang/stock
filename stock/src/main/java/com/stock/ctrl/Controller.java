@@ -63,4 +63,19 @@ public class Controller {
 		return gson.toJson(stockInfoList);
 	}
 	
+	@RequestMapping(value = "/callTask", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String callTask() {
+		OpenData openData = context.getBean(OpenData.class);
+		try {
+			openData.updateStockInfo();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			messageVO.setResMessage("發生錯誤，原因為：" + e.getMessage());
+			return gson.toJson(messageVO);
+		}
+		messageVO.setResMessage(null);
+		return gson.toJson(messageVO);
+	}
+	
 }

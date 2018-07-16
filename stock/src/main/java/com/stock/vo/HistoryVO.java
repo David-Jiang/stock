@@ -6,6 +6,7 @@ public class HistoryVO {
 	private String highPrice;
 	private String lowPrice;
 	private String endPrice;
+	private String wavePrice;
 	private String transactionAmount;
 	
 	public String getTransactionDate() {
@@ -43,6 +44,12 @@ public class HistoryVO {
 	}
 	public void setTransactionAmount(String transactionAmount) {
 		this.transactionAmount = transactionAmount;
+	}
+	public String getWavePrice() {
+		return wavePrice;
+	}
+	public void setWavePrice(String wavePrice) {
+		this.wavePrice = wavePrice;
 	}
 	
 	
