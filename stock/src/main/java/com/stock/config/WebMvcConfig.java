@@ -9,8 +9,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView;
-import org.springframework.web.servlet.view.jasperreports.JasperReportsViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
@@ -60,18 +58,5 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(final InterceptorRegistry registry) {
 		registry.addInterceptor(localeChangeInterceptor());
-	}
-	
-	/** 預設顯示pdf, filename=rpt_xxxx, ex: new ModelAndView("rpt_pdf", parameterMap);*/
-	@Bean
-	public JasperReportsViewResolver getJasperReportsViewResolver() {
-	  JasperReportsViewResolver resolver = new JasperReportsViewResolver();
-	  resolver.setPrefix("classpath:/reports/");
-	  resolver.setSuffix(".jasper");
-	  resolver.setReportDataKey("datasource");
-	  resolver.setViewNames("rpt_*");
-	  resolver.setViewClass(JasperReportsMultiFormatView.class);
-	  resolver.setOrder(0);
-	  return resolver;
 	}
 }
